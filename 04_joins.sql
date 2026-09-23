@@ -1,0 +1,67 @@
+-- ==========================================
+-- JOINS ENTRE TABELAS
+-- ==========================================
+
+
+-- 1. Clientes e suas locações
+SELECT
+    cl.NOME,
+    l.DATA_LOCACAO,
+    l.VALOR_PAGO
+FROM CLIENTES cl
+INNER JOIN LOCACOES l
+    ON cl.CODCLIENTE = l.CODCLIENTE;
+
+
+-- 2. Filmes e suas locações
+SELECT
+    f.TITULO,
+    l.DATA_LOCACAO,
+    l.VALOR_PAGO
+FROM FILMES f
+INNER JOIN LOCACOES l
+    ON f.CODFILME = l.CODFILME;
+
+
+-- 3. Cliente + filme alugado
+SELECT
+    cl.NOME AS CLIENTE,
+    f.TITULO AS FILME,
+    l.DATA_LOCACAO,
+    l.VALOR_PAGO
+FROM LOCACOES l
+INNER JOIN CLIENTES cl
+    ON l.CODCLIENTE = cl.CODCLIENTE
+INNER JOIN FILMES f
+    ON l.CODFILME = f.CODFILME;
+
+
+-- 4. Locações acima de R$ 30,00
+SELECT
+    cl.NOME AS CLIENTE,
+    f.TITULO AS FILME,
+    l.VALOR_PAGO
+FROM LOCACOES l
+INNER JOIN CLIENTES cl
+    ON l.CODCLIENTE = cl.CODCLIENTE
+INNER JOIN FILMES f
+    ON l.CODFILME = f.CODFILME
+WHERE l.VALOR_PAGO > 30
+ORDER BY l.VALOR_PAGO DESC;
+
+
+-- 5. Informações completas das locações
+SELECT
+    l.CODLOCACAO,
+    cl.NOME AS CLIENTE,
+    f.TITULO AS FILME,
+    f.GENERO,
+    f.ANO_LANCAMENTO,
+    l.DATA_LOCACAO,
+    l.VALOR_PAGO
+FROM LOCACOES l
+INNER JOIN CLIENTES cl
+    ON l.CODCLIENTE = cl.CODCLIENTE
+INNER JOIN FILMES f
+    ON l.CODFILME = f.CODFILME
+ORDER BY l.DATA_LOCACAO;
